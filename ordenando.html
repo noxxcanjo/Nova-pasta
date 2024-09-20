@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenando</title>
+    <script src="ordenando.js"></script>
+</head>
+<body>
+    <h1>Ordenador de Números</h1>
+    <input type="number" id="valor" placeholder="Digite um número">
+    <button onclick="add()">Adicionar</button>
+    <select id="algoritmo">
+        <option>Bubble Sort</option>
+        <option>Selection Sort</option>
+        <option>Quick Sort</option>
+    </select>
+    <button onclick="ordenar()">Ordenar</button>
+    <button onclick="misturar()">Misturar</button>
+    <ul id="valores"></ul>
+
+    <script>
+        let numeros = [];
+
+        function add() {
+            const valor = document.getElementById('valor').value;
+            if (valor) {
+                const li = document.createElement('li');
+                li.innerText = valor;
+                document.getElementById('valores').appendChild(li);
+                numeros.push(parseInt(valor));
+            }
+            document.getElementById('valor').value = '';
+        }
+
+        function ordenar() {
+            const algoritmo = document.getElementById('algoritmo').value;
+            let sortedArray = [...numeros];
+            if (algoritmo === 'Bubble Sort') {
+                bubble_sort(sortedArray);
+            } else if (algoritmo === 'Selection Sort') {
+                selection_sort(sortedArray);
+            } else if (algoritmo === 'Quick Sort') {
+                quick_sort(sortedArray, 0, sortedArray.length - 1);
+            }
+            atualizarLista(sortedArray);
+        }
+
+        function misturar() {
+            shuffle(numeros, 10);
+            atualizarLista(numeros);
+        }
+
+        function atualizarLista(array) {
+            const ul = document.getElementById('valores');
+            ul.innerHTML = '';
+            array.forEach(num => {
+                const li = document.createElement('li');
+                li.innerText = num;
+                ul.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Receitas</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container bg-warning">
+    <h1>Catálogo de Receitas</h1>
+    <div class="d-flex flex-wrap" id="pnlCatalogo"></div>
+
+    <script>
+        const receitas = [
+            {
+                titulo: "Bolo de Chocolate",
+                imagem: "path/to/chocolate-cake.png",
+                preparo: "Misture todos os ingredientes e asse por 30 minutos.",
+                ingredientes: ["Farinha", "Açúcar", "Cacau em pó", "Ovos"]
+            },
+            // Adicione mais receitas conforme necessário
+        ];
+
+        function getListaIngredientes(ingredientes) {
+            return `<ul>${ingredientes.map(ing => `<li>${ing}</li>`).join('')}</ul>`;
+        }
+
+        function getCard(receita) {
+            return `
+                <div class="card" style="width: 250px;">
+                    <img class="card-img-top" src="${receita.imagem}" alt="${receita.titulo}">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">
+                            ${getListaIngredientes(receita.ingredientes)}
+                            <hr>
+                            ${receita.preparo}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function preencheCatalogo() {
+            const pnlCatalogo = document.getElementById('pnlCatalogo');
+            pnlCatalogo.innerHTML = receitas.map(getCard).join('');
+        }
+
+        window.onload = preencheCatalogo;
+    </script>
+</body>
+</html>
